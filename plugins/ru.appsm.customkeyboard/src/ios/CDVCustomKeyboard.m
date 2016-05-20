@@ -83,7 +83,36 @@ UITextView *hiddenTextView;
     hiddenTextView.keyboardType = self.keyboardType;
     hiddenTextView.text = startedValue;
     [hiddenTextView becomeFirstResponder];
-    showButton(hiddenTextView);
+    
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 35.0f)];
+    toolbar.barStyle=UIBarStyleDefault;
+    toolbar.translucent = YES;
+    toolbar.tintColor = [UIColor greenColor];
+    
+    // Create a flexible space to align buttons to the right
+    UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    // Create a cancel button to dismiss the keyboard
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneView)];
+    
+    UIBarButtonItem *barButtonItem2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelView)];
+    
+    // Add buttons to the toolbar
+    [toolbar setItems:[NSArray arrayWithObjects: barButtonItem2,  flexibleSpace, barButtonItem, nil]];
+    
+    // Set the toolbar as accessory view of an UITextField object
+    hiddenTextView.inputAccessoryView = toolbar;
+    
+
+}
+- (void) doneView{
+    [self.webView becomeFirstResponder];
+    [hiddenTextView resignFirstResponder];
+}
+
+- (void) cancelView {
+    [self.webView becomeFirstResponder];
+    [hiddenTextView resignFirstResponder];
 }
 
 - (void)close:(CDVInvokedUrlCommand*)command
@@ -101,21 +130,6 @@ UITextView *hiddenTextView;
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)showButton:(UITextView *)textView{
 
-UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 35.0f)];
-    toolbar.barStyle=UIBarStyleBlackOpaque;
 
-    // Create a flexible space to align buttons to the right
-    UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-
-    // Create a cancel button to dismiss the keyboard
-    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(resetView)];
-
-    // Add buttons to the toolbar
-    [toolbar setItems:[NSArray arrayWithObjects:flexibleSpace, barButtonItem, nil]];
-
-    // Set the toolbar as accessory view of an UITextField object
-    textView.inputAccessoryView = toolbar;
-}
 @end
