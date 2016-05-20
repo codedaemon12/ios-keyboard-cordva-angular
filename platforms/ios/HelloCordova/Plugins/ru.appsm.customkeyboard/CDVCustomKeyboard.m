@@ -92,13 +92,14 @@ UITextView *hiddenTextView;
     // Create a flexible space to align buttons to the right
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    // Create a cancel button to dismiss the keyboard
-    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneView)];
+    // Create a done button to dismiss the keyboard
+    UIBarButtonItem *barButtonItemDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneView)];
     
-    UIBarButtonItem *barButtonItem2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelView)];
+    // Create a cancel button to dismiss the keyboard
+    UIBarButtonItem *barButtonItemCancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelView)];
     
     // Add buttons to the toolbar
-    [toolbar setItems:[NSArray arrayWithObjects: barButtonItem2,  flexibleSpace, barButtonItem, nil]];
+    [toolbar setItems:[NSArray arrayWithObjects: barButtonItemCancel,  flexibleSpace, barButtonItemDone, nil]];
     
     // Set the toolbar as accessory view of an UITextField object
     hiddenTextView.inputAccessoryView = toolbar;
