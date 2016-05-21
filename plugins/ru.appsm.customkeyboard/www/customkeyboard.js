@@ -35,4 +35,7 @@ CustomKeyboard.close = function(callback) {
     exec(callback, null, "CustomKeyboard", "close", []);
 };
 
+CustomKeyboard.isKeyboardOnScreen = function(callback) {
+    exec(callback, null, "CustomKeyboard", "isKeyboardOnScreen", []);
+};
 module.exports = CustomKeyboard;

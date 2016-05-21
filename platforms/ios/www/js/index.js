@@ -61,40 +61,74 @@ angular.module('myApp')
             restrict : 'A',
             require: '?^ngModel',
             link : function(scope,elem,attr,model){
+                
+                //$(":focus").
+               // $(":focus").attr('id') == elem[0].id
+                var keyboardStatus = "Closed";
                 elem.bind('click',function(){
-                   //document.getElementById('test1').value
-                    console.log('elem '+elem.val());
-                    var finalValue;
-                    var pastValue = elem.val();
-                    CustomKeyboard.open(elem.val(), 9, function(value) {
-                       console.log('value ' +value);
-                        if(!((value.toString().split('.').length - 1 )>1 && pastValue.toString().indexOf('.') > 0)){
-                            if(value.indexOf('.') > 0 &&  (value.toString().substr(value.toString().indexOf('.')+1).length > 2)){
-                                return false;
-                            }else{
-                                if (value == '0000') {
-                                    CustomKeyboard.close();
+                        elem.val(elem.val().toString().replace('.00',''));
+                        var finalValue;
+                        var pastValue = elem.val();
+                        CustomKeyboard.open(elem.val(), 9, function(value) {
+                          //  keyboardStatus = "Open";
+                           console.log('value ' +value);
+                            if(!((value.toString().split('.').length - 1 )>1 && pastValue.toString().indexOf('.') > 0)){
+                                if(value.indexOf('.') > 0 &&  (value.toString().substr(value.toString().indexOf('.')+1).length > 2)){
+                                    return false;
+                                }else{
+                                    if (value == '0000') {
+                                        CustomKeyboard.close();
+                                    }
+                                elem.val(value);
+                                pastValue = value;
                                 }
-                            elem.val(value);
-                            pastValue = value;
+
                             }
-                            
-                        }
-                        else{
-                            elem[0].focus();
-                            setCaretPosition(elem[0],elem.val().length);
-                        }
-                    }, function(finished) {
-                        console.log(finished);
-                        finalValue = elem.val();
-                                       // console.log(finalValue);
-                        model.$setViewValue(finalValue);
-                        model.$render();
-                    // alert('Keyboard closed');
-                    })
+                            else{
+                                elem[0].focus();
+                                setCaretPosition(elem[0],elem.val().length);
+                            }
+                        }, function(finished) {
+                           // keyboardStatus = "Closed";
+                            console.log(finished);
+                            if(finished!=""){
+                                finalValue = convertToCurrency(elem.val());
+                            }
+                            console.log('finalValue '+finalValue);
+                            elem.val(finalValue);
+                                           // console.log(finalValue);
+                            model.$setViewValue(finalValue);
+                            model.$render();
+                        // alert('Keyboard closed');
+                        })  
+//                   } //end if
+//                    else{
+//                        elem[0].focus();
+//                    }
                 });
             
-                
+                function convertToCurrency(amount){
+                    var finalAmount="";
+                    if(amount.toString().indexOf('.') < 0){
+                        finalAmount = amount +".00";
+                    }
+                    else {
+                        var noDigitsAfterDecimal = amount.toString().substr(amount.toString().indexOf('.')+1).length;
+                        if(noDigitsAfterDecimal ===2){
+                            finalAmount = amount;
+                        }
+                        else{
+                            var cnt = noDigitsAfterDecimal;
+                            console.log('noDigitsAfterDecimal '+noDigitsAfterDecimal);
+                            while(cnt < 2){
+                                amount = amount +'0';
+                                cnt++;
+                            }
+                            finalAmount = amount;
+                        }
+                    }
+                    return finalAmount;
+                }
                 function setCaretPosition(ctrl, pos)
                 {
                     if(ctrl.setSelectionRange)

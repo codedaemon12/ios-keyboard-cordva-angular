@@ -15,7 +15,7 @@
 		3047A5121AB8059700498E2A /* build-debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3047A50F1AB8059700498E2A /* build-debug.xcconfig */; };
 		3047A5131AB8059700498E2A /* build-release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3047A5101AB8059700498E2A /* build-release.xcconfig */; };
 		3047A5141AB8059700498E2A /* build.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3047A5111AB8059700498E2A /* build.xcconfig */; };
-		9826DD687FFE4004BED03760 /* CDVCustomKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = A76086A0FCB244118B185132 /* CDVCustomKeyboard.m */; };
+		E2EC9907A5AD445C8DBACF96 /* CDVCustomKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = BA56DFCAB12B4D91B2D28BE8 /* CDVCustomKeyboard.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,8 +55,8 @@
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "HelloCordova/config.xml"; sourceTree = "<group>"; };
 		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		A76086A0FCB244118B185132 /* CDVCustomKeyboard.m */ = {isa = PBXFileReference; name = "CDVCustomKeyboard.m"; path = "ru.appsm.customkeyboard/CDVCustomKeyboard.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		1DE35BE2BC244302A30DB4CF /* CDVCustomKeyboard.h */ = {isa = PBXFileReference; name = "CDVCustomKeyboard.h"; path = "ru.appsm.customkeyboard/CDVCustomKeyboard.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		BA56DFCAB12B4D91B2D28BE8 /* CDVCustomKeyboard.m */ = {isa = PBXFileReference; name = "CDVCustomKeyboard.m"; path = "ru.appsm.customkeyboard/CDVCustomKeyboard.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		78412A40C1F94D00A07D2397 /* CDVCustomKeyboard.h */ = {isa = PBXFileReference; name = "CDVCustomKeyboard.h"; path = "ru.appsm.customkeyboard/CDVCustomKeyboard.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,8 +159,8 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				A76086A0FCB244118B185132 /* CDVCustomKeyboard.m */,
-				1DE35BE2BC244302A30DB4CF /* CDVCustomKeyboard.h */,
+				BA56DFCAB12B4D91B2D28BE8 /* CDVCustomKeyboard.m */,
+				78412A40C1F94D00A07D2397 /* CDVCustomKeyboard.h */,
 			);
 			name = Plugins;
 			path = "HelloCordova/Plugins";
@@ -275,7 +275,7 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
-				9826DD687FFE4004BED03760 /* CDVCustomKeyboard.m in Sources */,
+				E2EC9907A5AD445C8DBACF96 /* CDVCustomKeyboard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

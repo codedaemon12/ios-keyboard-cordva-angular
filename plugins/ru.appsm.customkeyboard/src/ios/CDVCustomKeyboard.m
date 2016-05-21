@@ -9,6 +9,7 @@
 @implementation CDVCustomKeyboard
 
 UITextView *hiddenTextView;
+bool isKeyboard = false;
 
 - (void)pluginInitialize
 {
@@ -20,9 +21,28 @@ UITextView *hiddenTextView;
         hiddenTextView.keyboardType = UIKeyboardTypeDecimalPad;
         hiddenTextView.delegate = self;
         [self.viewController.view addSubview:hiddenTextView];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
     }
 }
 
+// Called when the UIKeyboardDidShowNotification is sent.
+- (void)keyboardWasShown:(NSNotification*)aNotification {
+    isKeyboard = true;
+    NSLog(@"Keyboard is active.");
+    NSLog(@"a is %i ", isKeyboard);
+
+}
+
+// Called when the UIKeyboardWillHideNotification is sent
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification {
+    isKeyboard = false;
+    NSLog(@"Keyboard is hidden");
+    NSLog(@"a is %i ", isKeyboard);
+ 
+ 
+}
 - (void)textViewDidChange:(UITextView *)textView {
     NSString *text = textView.text;
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:text];
@@ -82,12 +102,12 @@ UITextView *hiddenTextView;
     }
     hiddenTextView.keyboardType = self.keyboardType;
     hiddenTextView.text = startedValue;
-    [hiddenTextView becomeFirstResponder];
+   
     
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 35.0f)];
     toolbar.barStyle=UIBarStyleDefault;
     toolbar.translucent = YES;
-    toolbar.tintColor = [UIColor greenColor];
+    toolbar.tintColor = [UIColor blueColor];
     
     // Create a flexible space to align buttons to the right
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -104,6 +124,7 @@ UITextView *hiddenTextView;
     // Set the toolbar as accessory view of an UITextField object
     hiddenTextView.inputAccessoryView = toolbar;
     
+    [hiddenTextView becomeFirstResponder];
 
 }
 - (void) doneView{
@@ -114,7 +135,11 @@ UITextView *hiddenTextView;
 - (void) cancelView {
     [self.webView becomeFirstResponder];
     [hiddenTextView resignFirstResponder];
+    //hiddenTextView.text = [NSString stringWithFormat:@"%@/%@", hiddenTextView.text, @"00"];
+    //[self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK]  callbackId:command.callbackId];
 }
+
+
 
 - (void)close:(CDVInvokedUrlCommand*)command
 {
@@ -131,6 +156,12 @@ UITextView *hiddenTextView;
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-
+- (void)isKeyboardOnScreen:(CDVInvokedUrlCommand*)command
+{
+    [self.webView becomeFirstResponder];
+     NSString *result = (isKeyboard == true) ? @"Open":@"Closed";
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:result];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
 
 @end
