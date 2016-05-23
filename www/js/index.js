@@ -86,7 +86,7 @@ angular.module('myApp')
                                 console.log('Value means '+value);
                             }
                             else{
-                                //restrict users to enter multiple decimals.
+                                //restrict users to enter multiple decimals. Focus the input after that
                                 elem[0].focus();
                                 setCaretPosition(elem[0],elem.val().length);
                                 
