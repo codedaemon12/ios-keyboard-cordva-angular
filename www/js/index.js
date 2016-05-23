@@ -75,7 +75,6 @@ angular.module('myApp')
                             if(!((value.toString().split('.').length - 1 )>1 && pastValue.toString().indexOf('.') > 0)){
                                 if(value.indexOf('.') >= 0 &&  (value.toString().substr(value.toString().indexOf('.')+1).length > 2)){
                                     //restrict users to enter anything after two decimal chars.
-                                    value = elem.val();
                                     return false;
                                 }else{
                                     if (value == '0000') {
