@@ -73,7 +73,9 @@ angular.module('myApp')
                           //  keyboardStatus = "Open";
                            console.log('value ' +value);
                             if(!((value.toString().split('.').length - 1 )>1 && pastValue.toString().indexOf('.') > 0)){
-                                if(value.indexOf('.') > 0 &&  (value.toString().substr(value.toString().indexOf('.')+1).length > 2)){
+                                if(value.indexOf('.') >= 0 &&  (value.toString().substr(value.toString().indexOf('.')+1).length > 2)){
+                                    //restrict users to enter anything after two decimal chars.
+                                    value = elem.val();
                                     return false;
                                 }else{
                                     if (value == '0000') {
@@ -82,11 +84,13 @@ angular.module('myApp')
                                 elem.val(value);
                                 pastValue = value;
                                 }
-
+                                console.log('Value means '+value);
                             }
                             else{
+                                //restrict users to enter multiple decimals.
                                 elem[0].focus();
                                 setCaretPosition(elem[0],elem.val().length);
+                                
                             }
                         }, function(finished) {
                            // keyboardStatus = "Closed";
