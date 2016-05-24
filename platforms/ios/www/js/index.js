@@ -65,17 +65,17 @@ angular.module('myApp')
                 //$(":focus").
                // $(":focus").attr('id') == elem[0].id
                 var keyboardStatus = "Closed";
+                var wu_decimal_separator=",";
                 elem.bind('click',function(){
-                        elem.val(elem.val().toString().replace('.00',''));
+                        elem.val(elem.val().toString().replace(wu_decimal_separator+'00',''));
                         var finalValue;
                         var pastValue = elem.val();
                         CustomKeyboard.open(elem.val(), 9, function(value) {
                           //  keyboardStatus = "Open";
                            console.log('value ' +value);
-                            if(!((value.toString().split('.').length - 1 )>1 && pastValue.toString().indexOf('.') > 0)){
-                                if(value.indexOf('.') >= 0 &&  (value.toString().substr(value.toString().indexOf('.')+1).length > 2)){
+                            if(!((value.toString().split(wu_decimal_separator).length - 1 )>1 && pastValue.toString().indexOf(wu_decimal_separator) > 0)){
+                                if(value.indexOf(wu_decimal_separator) >= 0 &&  (value.toString().substr(value.toString().indexOf(wu_decimal_separator)+1).length > 2)){
                                     //restrict users to enter anything after two decimal chars.
-                                    value = elem.val();
                                     return false;
                                 }else{
                                     if (value == '0000') {
@@ -87,7 +87,7 @@ angular.module('myApp')
                                 console.log('Value means '+value);
                             }
                             else{
-                                //restrict users to enter multiple decimals.
+                                //restrict users to enter multiple decimals. Focus the input after that
                                 elem[0].focus();
                                 setCaretPosition(elem[0],elem.val().length);
                                 
@@ -113,11 +113,11 @@ angular.module('myApp')
             
                 function convertToCurrency(amount){
                     var finalAmount="";
-                    if(amount.toString().indexOf('.') < 0){
-                        finalAmount = amount +".00";
+                    if(amount.toString().indexOf(wu_decimal_separator) < 0){
+                        finalAmount = amount +wu_decimal_separator +"00";
                     }
                     else {
-                        var noDigitsAfterDecimal = amount.toString().substr(amount.toString().indexOf('.')+1).length;
+                        var noDigitsAfterDecimal = amount.toString().substr(amount.toString().indexOf(wu_decimal_separator)+1).length;
                         if(noDigitsAfterDecimal ===2){
                             finalAmount = amount;
                         }
