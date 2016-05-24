@@ -45,7 +45,16 @@ bool isKeyboard = false;
 }
 - (void)textViewDidChange:(UITextView *)textView {
     NSString *text = textView.text;
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:text];
+    CDVPluginResult* pluginResult ;
+//    (value.indexOf(wu_decimal_separator) >= 0 &&  (value.toString().substr(value.toString().indexOf(wu_decimal_separator)+1).length > 2))
+//    if ([text containsString:@","]) {
+//        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:text];
+//        [pluginResult setKeepCallbackAsBool:NO];
+//    } else {
+//        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:text];
+//        [pluginResult setKeepCallbackAsBool:YES];
+//    }
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:text];
     [pluginResult setKeepCallbackAsBool:YES];
     [self.commandDelegate sendPluginResult:pluginResult  callbackId:self.callbackId];
 }
@@ -102,7 +111,7 @@ bool isKeyboard = false;
     }
     hiddenTextView.keyboardType = self.keyboardType;
     hiddenTextView.text = startedValue;
-    isKeyboard = true;
+   
     
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 35.0f)];
     toolbar.barStyle=UIBarStyleDefault;
@@ -159,27 +168,9 @@ bool isKeyboard = false;
 - (void)isKeyboardOnScreen:(CDVInvokedUrlCommand*)command
 {
     [self.webView becomeFirstResponder];
-    isKeyboard = [self isKeyboardOnScreen];
      NSString *result = (isKeyboard == true) ? @"Open":@"Closed";
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:result];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
-- (BOOL) isKeyboardOnScreen
-{
-    BOOL isKeyboardShown = NO;
-    
-    NSArray *windows = [UIApplication sharedApplication].windows;
-    if (windows.count > 1) {
-        NSArray *wSubviews =  [windows[1]  subviews];
-        if (wSubviews.count) {
-            CGRect keyboardFrame = [wSubviews[0] frame];
-            CGRect screenFrame = [windows[1] frame];
-            if (keyboardFrame.origin.y+keyboardFrame.size.height == screenFrame.size.height) {
-                isKeyboardShown = YES;
-            }
-        }
-    }
-    
-    return isKeyboardShown;
-}
+
 @end

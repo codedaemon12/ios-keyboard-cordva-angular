@@ -38,4 +38,9 @@ CustomKeyboard.close = function(callback) {
 CustomKeyboard.isKeyboardOnScreen = function(callback) {
     exec(callback, null, "CustomKeyboard", "isKeyboardOnScreen", []);
 };
+
+CustomKeyboard.endEdit = function(callback) {
+    exec(null, callback, "CustomKeyboard", "textViewDidEndEditing", []);
+};
+
 module.exports = CustomKeyboard;

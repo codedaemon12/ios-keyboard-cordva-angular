@@ -45,7 +45,16 @@ bool isKeyboard = false;
 }
 - (void)textViewDidChange:(UITextView *)textView {
     NSString *text = textView.text;
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:text];
+    CDVPluginResult* pluginResult ;
+//    (value.indexOf(wu_decimal_separator) >= 0 &&  (value.toString().substr(value.toString().indexOf(wu_decimal_separator)+1).length > 2))
+//    if ([text containsString:@","]) {
+//        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:text];
+//        [pluginResult setKeepCallbackAsBool:NO];
+//    } else {
+//        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:text];
+//        [pluginResult setKeepCallbackAsBool:YES];
+//    }
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:text];
     [pluginResult setKeepCallbackAsBool:YES];
     [self.commandDelegate sendPluginResult:pluginResult  callbackId:self.callbackId];
 }
